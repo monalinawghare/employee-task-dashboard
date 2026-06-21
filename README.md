@@ -2,6 +2,10 @@
 
 A production-ready task management dashboard built with **React + Vite**. Employees can create, organize, filter, and track tasks with a clean, responsive UI that works on mobile, tablet, and desktop. All data is persisted to `localStorage`, so tasks survive page refreshes with no backend required.
 
+## Live Demo
+
+https://employee-task-dashboard-eight.vercel.app
+
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=000)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)
 ![React Router](https://img.shields.io/badge/React%20Router-6-CA4245?logo=reactrouter&logoColor=fff)
