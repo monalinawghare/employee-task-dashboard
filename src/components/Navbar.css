@@ -1,0 +1,394 @@
+/* Navbar.css */
+
+/* --- Base Reset & Variables --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Light Theme (Default) */
+  --navbar-bg: #ffffff;
+  --navbar-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  --navbar-text: #1a1a2e;
+  --navbar-link: #4a4a6a;
+  --navbar-link-hover: #6c63ff;
+  --navbar-link-active: #6c63ff;
+  --navbar-link-active-bg: rgba(108, 99, 255, 0.08);
+  --navbar-toggle-color: #1a1a2e;
+  --navbar-brand-color: #1a1a2e;
+  --navbar-border: #e8e8f0;
+  --navbar-logo-filter: none; /* Light mode: no filter */
+}
+
+[data-theme='dark'] {
+  --navbar-bg: #1a1a2e;
+  --navbar-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  --navbar-text: #e8e8f0;
+  --navbar-link: #b8b8d0;
+  --navbar-link-hover: #8b83ff;
+  --navbar-link-active: #8b83ff;
+  --navbar-link-active-bg: rgba(139, 131, 255, 0.15);
+  --navbar-toggle-color: #e8e8f0;
+  --navbar-brand-color: #e8e8f0;
+  --navbar-border: #2a2a4a;
+  --navbar-logo-filter: none; /* Dark mode: make logo white */
+}
+
+/* --- Apply filter to logo --- */
+.navbar-brand-logo {
+  height: 36px;
+  width: 36px;
+  object-fit: contain;
+  filter: var(--navbar-logo-filter); /* ← This applies the filter */
+  transition: filter 0.3s ease;
+}
+/* --- Navbar Container --- */
+.navbar {
+  background: var(--navbar-bg);
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: var(--navbar-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Inner Container (Centered) --- */
+.navbar-inner {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* --- Brand / Logo --- */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navbar-brand-color);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navbar-brand span {
+  background: linear-gradient(135deg, #6c63ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme='dark'] .navbar-brand span {
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- Navigation Links --- */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+}
+
+.navbar-link {
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--navbar-link);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-link:hover {
+  color: var(--navbar-link-hover);
+  background: rgba(108, 99, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+.navbar-link.active {
+  color: var(--navbar-link-active);
+  background: var(--navbar-link-active-bg);
+  font-weight: 600;
+}
+
+/* Active link underline animation */
+.navbar-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: linear-gradient(90deg, #6c63ff, #a855f7);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.navbar-link:hover::after {
+  width: 30px;
+}
+
+/* --- Right Side Actions --- */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* --- Theme Toggle Button --- */
+.theme-toggle {
+  min-width: 96px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: var(--navbar-link-active-bg);
+  color: var(--navbar-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  position: relative;
+}
+
+.theme-toggle:hover {
+  background: rgba(108, 99, 255, 0.15);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+/* --- Hamburger Toggle Button --- */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.navbar-toggle:hover {
+  background: rgba(108, 99, 255, 0.06);
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 28px;
+  height: 2.5px;
+  background: var(--navbar-toggle-color);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Hamburger → X animation */
+.navbar-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggle.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.navbar-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* --- Responsive: Tablet & Mobile (≤ 768px) --- */
+@media (max-width: 768px) {
+  .navbar-inner {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  .navbar-brand-logo {
+    height: 30px;
+    width: 30px;
+  }
+
+  /* Show hamburger */
+  .navbar-toggle {
+    display: flex;
+  }
+
+  /* Hide links by default on mobile */
+  .navbar-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--navbar-bg);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 20px 24px;
+    gap: 4px;
+    border-bottom: 1px solid var(--navbar-border);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: scaleY(0);
+    transform-origin: top center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .navbar-links.mobile-open {
+    transform: scaleY(1);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    max-height: 400px;
+    overflow: visible;
+  }
+
+  .navbar-link {
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    text-align: left;
+    border-left: 3px solid transparent;
+  }
+
+  .navbar-link.active {
+    border-left-color: #6c63ff;
+    background: var(--navbar-link-active-bg);
+  }
+
+  .navbar-link.active::after {
+    display: none; /* Remove underline on mobile, use left border instead */
+  }
+
+  .navbar-link:hover {
+    transform: none;
+    background: rgba(108, 99, 255, 0.06);
+  }
+
+  /* Adjust actions */
+  .navbar-actions {
+    gap: 6px;
+  }
+
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Small Mobile (≤ 480px) --- */
+@media (max-width: 480px) {
+  .navbar-inner {
+    padding: 0 12px;
+    height: 58px;
+  }
+
+  .navbar-brand {
+    font-size: 0.95rem;
+    gap: 8px;
+  }
+
+  .navbar-brand-logo {
+    height: 26px;
+    width: 26px;
+  }
+
+  .navbar-links {
+    top: 58px;
+    padding: 10px 16px 20px;
+  }
+
+  .navbar-link {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .navbar-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar-toggle span {
+    width: 24px;
+    height: 2px;
+  }
+}
+
+/* --- Accessibility: Focus, Reduced Motion --- */
+.navbar-link:focus-visible,
+.theme-toggle:focus-visible,
+.navbar-toggle:focus-visible {
+  outline: 2px solid #6c63ff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-link,
+  .theme-toggle,
+  .navbar-toggle span,
+  .navbar-links {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* --- Optional: Smooth scrollbar (for desktop) --- */
+.navbar-links::-webkit-scrollbar {
+  width: 4px;
+}
+
+.navbar-links::-webkit-scrollbar-thumb {
+  background: #6c63ff;
+  border-radius: 10px;
+}
